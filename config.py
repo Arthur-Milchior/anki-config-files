@@ -11,6 +11,7 @@ version =
 
 def newVersion():
 
+
 """A string stating what could occurs with a wrong configuration file"""
 otherwise = ""
 
@@ -20,10 +21,14 @@ otherwise = ""
 userOption = None
 
 
-def getUserOption(key=None, default=None):
+def _getUserOption():
     global userOption
     if userOption is None:
         userOption = mw.addonManager.getConfig(__name__)
+
+
+def getUserOption(key=None, default=None):
+    _getUserOption()
     if key is None:
         return userOption
     if key in userOption:
@@ -32,7 +37,7 @@ def getUserOption(key=None, default=None):
         return default
 
 
-lastVersion = getUserOption(version)
+lastVersion = getUserOption(version, 0)
 if lastVersion < version:
     newVersion()
     pass
@@ -65,3 +70,9 @@ def getFromName(name):
         for dic in getUserOption("columns"):
             fromName[dic["name"]] = dic
     return fromName.get(name)
+
+
+def setUserOption(key, value):
+    _getUserOption()
+    userOption[key] = value
+    writeConfig()
