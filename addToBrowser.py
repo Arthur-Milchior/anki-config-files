@@ -1,4 +1,5 @@
 from anki.hooks import addHook
+from aqt.qt import *
 
 
 def addToBrowser(fun, text, shortcut=None):
