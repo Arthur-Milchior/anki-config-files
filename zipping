@@ -1,2 +1,2 @@
 rm ????.zip
-zip ????.zip config.* *py  LICENSE *.md zipping --exclude \*~ \*zip
+zip -R ????.zip config.* *py  LICENSE *.md zipping --exclude \*~ \*zip ankiweb
