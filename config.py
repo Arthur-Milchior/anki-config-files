@@ -11,7 +11,6 @@ version =
 
 def newVersion():
 
-
 """A string stating what could occurs with a wrong configuration file"""
 otherwise = ""
 
@@ -44,7 +43,7 @@ if lastVersion < version:
 if lastVersion > version:
     t = f"Please update add-on {addonName}. It seems that your configuration file is made for a more recent version of the add-on."
     if otherwise:
-        t += "\n"+otherwise
+        t += "\n" + otherwise
     showWarning(t)
 
 
