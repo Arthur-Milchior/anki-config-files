@@ -11,6 +11,7 @@ version =
 
 def newVersion():
 
+
 """A string stating what could occurs with a wrong configuration file"""
 otherwise = ""
 
@@ -46,6 +47,10 @@ def getUserOption(key=None, default=None):
         return default
 
 
+def writeConfig():
+    mw.addonManager.writeConfig(__name__, userOption)
+
+
 lastVersion = getUserOption(version, 0)
 if lastVersion < version:
     newVersion()
@@ -55,10 +60,6 @@ if lastVersion > version:
     if otherwise:
         t += "\n" + otherwise
     showWarning(t)
-
-
-def writeConfig():
-    mw.addonManager.writeConfig(__name__, userOption)
 
 
 def update(_):
