@@ -27,7 +27,7 @@ def _getUserOption():
         userOption = mw.addonManager.getConfig(__name__)
 
 
-def getUserOption(keys=None, default=None):
+def getUserOption(keys=None, default=None, set_to_default_if_missing=True):
     """Get the user option if it is set. Otherwise return the default
     value and add it to the config.
 
@@ -59,8 +59,9 @@ def getUserOption(keys=None, default=None):
     if key not in userOption:
         return userOption[key]
     else:
-        userOption[keys] = default
-        writeConfig()
+        if set_to_default_if_missing:
+            userOption[keys] = default
+            writeConfig()
         return default
 
 
