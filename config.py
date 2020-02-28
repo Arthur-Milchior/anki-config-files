@@ -27,22 +27,39 @@ def _getUserOption():
         userOption = mw.addonManager.getConfig(__name__)
 
 
-def getUserOption(key=None, default=None):
+def getUserOption(keys=None, default=None):
     """Get the user option if it is set. Otherwise return the default
     value and add it to the config.
 
-    When an add-on was updated, new config key were not added. This
+    When an add-on was updated, new config keys were not added. This
     was a problem because user never discover those configs. By adding
     it to the config file, users will see the option and can configure it.
 
+    If keys is a list of string [key1, key2, ... keyn], it means that
+    config[key1], ..., config[key1]..[key n-1] are dicts and we want
+    to get config[key1]..[keyn]
+
     """
     _getUserOption()
-    if key is None:
+    if keys is None:
         return userOption
-    if key in userOption:
+    if isinstance(keys, str):
+        keys = [keys]
+
+    # Path in the list of dict
+    current = userOption
+    for key in keys[:-1]:
+        assert isinstance(current, dict)
+        if key not in current:
+            current[key] = dict()
+        current = current[key]
+
+    # last element
+    key = userOption[-1]
+    if key not in userOption:
         return userOption[key]
     else:
-        userOption[key] = default
+        userOption[keys] = default
         writeConfig()
         return default
 
