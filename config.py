@@ -55,12 +55,12 @@ def getUserOption(keys=None, default=None, set_to_default_if_missing=True):
         current = current[key]
 
     # last element
-    key = userOption[-1]
+    key = keys[-1]
     if key not in userOption:
         return userOption[key]
     else:
         if set_to_default_if_missing:
-            userOption[keys] = default
+            userOption[key] = default
             writeConfig()
         return default
 
