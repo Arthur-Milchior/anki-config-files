@@ -106,3 +106,4 @@ venv.bak/
 *~
 *.zip
 *.ankiaddon
+__pycache__
