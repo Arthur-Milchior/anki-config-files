@@ -56,7 +56,7 @@ def getUserOption(keys=None, default=None, set_to_default_if_missing=True):
 
     # last element
     key = keys[-1]
-    if key not in userOption:
+    if key in userOption:
         return userOption[key]
     else:
         if set_to_default_if_missing:
