@@ -1,2 +1,2 @@
 rm ????.zip
-zip -R ????.zip config.* *py *css *js web  LICENSE *.md zipping --exclude \*~ \*zip ankiweb
+zip -R ????.zip config.* *.ui *.sh *.py *.css *.js web  LICENSE *.md zipping --exclude \*~ \*zip ankiweb
