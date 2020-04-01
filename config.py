@@ -19,7 +19,8 @@ otherwise = ""
 # end configuration
 
 userOption = None
-
+addon = mw.addonManager.addonFromModule(__name__)
+default = mw.addonManager.addonConfigDefaults(__name__)
 
 def _getUserOption():
     global userOption
@@ -27,7 +28,7 @@ def _getUserOption():
         userOption = mw.addonManager.getConfig(__name__)
 
 
-def getUserOption(keys=None, default=None, set_to_default_if_missing=True):
+def getUserOption(keys=None):
     """Get the user option if it is set. Otherwise return the default
     value and add it to the config.
 
@@ -48,22 +49,24 @@ def getUserOption(keys=None, default=None, set_to_default_if_missing=True):
 
     # Path in the list of dict
     current = userOption
-    for key in keys[:-1]:
+    current_default = default
+    change = False
+    for key in keys:
         assert isinstance(current, dict)
         if key not in current:
-            current[key] = dict()
+            current[key] = current_default[key]
+            # Raise KeyError if key is not in this sub dictionnary of the default config.
+            # Raise TypeError: object is not subscriptable if it's not a dictionnary
+            change = True
+        if isinstance(current_default, dict) and key in current_default:
+            current_default = current_default[key]
+        else:
+            current_default = None
         current = current[key]
 
-    # last element
-    key = keys[-1]
-    if key in userOption:
-        return userOption[key]
-    else:
-        if set_to_default_if_missing:
-            userOption[key] = default
-            writeConfig()
-        return default
-
+    if change:
+        writeConfig()
+    return current
 
 def writeConfig():
     mw.addonManager.writeConfig(__name__, userOption)
