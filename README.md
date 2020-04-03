@@ -4,9 +4,6 @@
 ## Configuration
 ## Technical
 ## Internal
-## Version 2.0
-None
-
 ## TODO
 
 ## Links, licence and credits
